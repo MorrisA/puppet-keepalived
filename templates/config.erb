@@ -1,0 +1,17 @@
+global_defs {
+  router_id <%= @hostname %>
+}
+
+vrrp_instance <%= @instance %>
+{
+  state MASTER   
+  virtual_router_id <%= @instance %>
+  # for electing MASTER, highest priority wins.   
+  priority  <%= @priority %>
+  interface <%= @interface %> 
+  virtual_ipaddress {
+    <% vips.each do |vip| -%>
+    <%= vip %>
+    <% end -%>
+  }
+} 
